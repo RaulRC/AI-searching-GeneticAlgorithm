@@ -19,8 +19,8 @@ def GA(eq, population, fitness, iterations, mutate_prob=0.1, mutation_rate=1):
     :param population: initial population. List of numpy vectors
     :param fitness: function to apply
     :param iterations: integer. Number of iterations
-    :param mutate_prob: float between 0.0 and 1.0
-    :param mutation_rate: increment/decrement of the parameter
+    :param mutate_prob: Probability of mutation. Float between 0.0 and 1.0
+    :param mutation_rate: increment/decrement of the gene value
     :return: tuple (best individual found as numpy vector, max value found, history of bests)
     """
     history = [0]
@@ -76,7 +76,7 @@ def mutate(x, mutation_rate=1):
     return x
 
 
-# Aux function
+# Aux functions
 def generate_population(items, length):
     """
     Generate a random population
