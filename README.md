@@ -39,3 +39,5 @@ Best individual: [ 8.39555748e-01  3.22001033e+03 -2.80964618e+03  3.95066504e+0
 Best value: 60127.17814725384
 
 ```
+
+![alt text](https://github.com/RaulRC/AI-searching-GeneticAlgorithm/blob/master/results.png "GA Example results")
