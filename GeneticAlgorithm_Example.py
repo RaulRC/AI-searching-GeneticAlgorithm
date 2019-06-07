@@ -103,7 +103,7 @@ def generate_population(items, length):
     Generate a random population
     :param items: number of individuals (chromosomes) numpy vector
     :param length: length of each individual (number of genes) numpy vector
-    :return: numpy array with
+    :return: numpy array with dimensions defined by items and length
     """
     return np.random.rand(items, length)
 
