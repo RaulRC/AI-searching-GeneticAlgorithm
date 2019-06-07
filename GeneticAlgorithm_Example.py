@@ -3,15 +3,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-def fitness(eq, individual):
+def lineal(eq, individual):
     """
-    Fitness function of the Genetic Algorithm
+    Lineal fitness function:
+        f(x1, x2, ..., xn) = w1·x1 + w2·x2^ + ... + wn·xn
+
     :param eq: equation to maximize
     :param individual: set of values applied to the equation to maximize it
     :return: dot product of each vector as number to maximize
     """
     return eq.dot(individual)
 
+
+def polynomial(eq, individual):
+    """
+    Polynomial fitness function:
+        f(x1, x2, ..., xn) = w1 + w2·x2^2 + w3·x3^3 + ... + wn·xn^n
+
+    :param eq: equation weights to maximize
+    :param individual: set of values applied to the equation to maximize it
+    :return: result of f(x1, x2, ..., xn) = w1 + w2·x2^2 + w3·x3^3 + ... + wn·xn^n
+    """
+    res = 0
+    for i, x in enumerate(individual):
+        res += eq[i] * x**i
+    return res
 
 def GA(eq, population, fitness, iterations, mutate_prob=0.1, mutation_rate=1):
     """
@@ -25,6 +41,7 @@ def GA(eq, population, fitness, iterations, mutate_prob=0.1, mutation_rate=1):
     """
     history = [0]
     for i in range(iterations):
+        print("Iteration {}".format(i))
         new_population = []
         for p in population:
             x, y = random_selection(population, fitness, eq)
@@ -32,8 +49,8 @@ def GA(eq, population, fitness, iterations, mutate_prob=0.1, mutation_rate=1):
             if random.random() <= mutate_prob:
                 child = mutate(child, mutation_rate)
             new_population.append(child)
-            best, best_value = best_of_generation(fitness, eq, population)
-            history.append(best_value)
+        best, best_value = best_of_generation(fitness, eq, population)
+        history.append(best_value)
         population = new_population
 
     return best, best_value, history
@@ -49,6 +66,10 @@ def random_selection(population, fitness, eq):
     """
     result = list(map(lambda x: (x, fitness(eq, x)), population))
     result.sort(key=lambda x: x[1], reverse=True)
+    limit = int(len(population)/2)
+    x = random.choice(result[:limit])[0]
+    y = random.choice(result[:limit])[0]
+    #return x, y
     return result[0][0], result[1][0]
 
 
@@ -107,8 +128,9 @@ def best_of_generation(fitness, eq, population):
 # Example
 eq = np.array([2.5, 3.4, -1.9, 4.9, 0, -8, 1])
 pop_limit = 10
-pop_length = 7
-iterations = 3000
+pop_length = len(eq)
+iterations = 1000
+fitness = polynomial
 
 indiv, value, history = GA(eq, generate_population(pop_limit,pop_length),
                            fitness, iterations, mutation_rate=10, mutate_prob=0.2)
