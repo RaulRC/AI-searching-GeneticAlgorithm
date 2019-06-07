@@ -4,9 +4,13 @@ Genetic Algorithm Python implementation based on Russell &amp; Norvig
 
 ## Example
 
-Given the equation
+Given the lineal equation
 
 f(x1, x2, ..., xn) = w1·x1 + w2·x2 + ... wn·xn
+
+or the polynomial equation
+
+f(x1, x2, ..., xn) = w1 + w2·x2^2 + ... wn·xn^n
 
 Search for a set of independent variables, X
 
